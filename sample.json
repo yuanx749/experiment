@@ -1,0 +1,6 @@
+{
+    "urls": [
+        "http://www.google.com"
+    ],
+    "n_workers": 8
+}
