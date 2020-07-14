@@ -11,7 +11,6 @@ def get_logger(name=None):
         name = os.path.basename(file_name)
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     logger = logging.getLogger(name)
-    logger.info(file_name)
     return logger
 
 def get_params(json_path=None):
@@ -28,6 +27,15 @@ def timer(func):
     def wrapper(*args, **kwargs):
         start = time.time()
         value = func(*args, **kwargs)
-        print('{} {} {} {:f} seconds'.format(func.__name__, args, kwargs, time.time() - start))
+        print('{} {:f} seconds'.format(func.__name__, time.time() - start))
         return value
     return wrapper
+
+def print_source(start, end=None):
+    start -= 1
+    if end is None:
+        end = start + 1
+    source_lines = inspect.getsourcelines(inspect.stack()[1].frame)[0]
+    for line in source_lines[start:end]:
+        print(line.rstrip())
+    return source_lines
